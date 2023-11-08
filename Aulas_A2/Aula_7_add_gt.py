@@ -14,7 +14,7 @@ class SerieTV:
     
     def __repr__(self):
         # class_ = type(self).__name__ Pode ser escrito assim
-        class_ = sel.__class__.__name__ # Assim é melhor
+        class_ = self.__class__.__name__ # Assim é melhor
         
         return f"{class_}(num_temporadas={self.num_temporadas!r}, num_episodios={self.num_episodios!r})"
     
