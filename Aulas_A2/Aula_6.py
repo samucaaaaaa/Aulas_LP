@@ -87,26 +87,52 @@ print(carro.descricao)
 class Foo:
     def __init__(self):
         self.public = "Public" # Qualquer unidade pode utilizar
-        self._proctected = "Proctected" # utilizado na classe e em suas subclasses
+        self._protected = "protected" # utilizado na classe e em suas subclasses
         self.__private = "Private" # 
 
     def public_method(self):
         print("Método público")
+        self._protected_method()
 
     def _protected_method(self):
+        # self.public_method()
         print("Método protegido") 
 
-    
-
-    ...
+    def __private_method(self):
+        print("Método protegido") 
+        self.__private_method()
 
 class Bar(Foo):
-    ...
+    def using_parent_public_method_and_attributes(self):
+        print("OK invocar métodos públicos e acessar atributos públicos")
+        super().public_method()
+        print(self.public)
+
+    def using_parent_protected_method_and_attributes(self):
+        print("OK invocar métodos protegidos e acessar atributos públicos")
+        super()._protected_method()
+        print(self._protected)
+    
+    def using_parent_private_method_and_attributes(self):
+        print("OK invocar métodos privados e acessar atributos públicos")
+        super()._Foo__private_method()
+        print(self.__private)
 
 object_ = Foo()
 print(object_.public)
 
 print("#"*40)
 print("ERRO SEMÂNTICO")
-print(object_._proctected)
+print(object_._protected)
 object_._protected_method()
+
+print("#"*40)
+print("ERRO SEMÂNTICO")
+print(object_._Foo__private)
+object_._Foo__private_method()
+
+print("#"*40)
+object_ = Bar()
+object_.using_parent_public_method_and_attributes()
+object_.using_parent_protected_method_and_attributes()
+object_.using_parent_private_method_and_attributes()
